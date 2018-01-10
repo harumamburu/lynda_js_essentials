@@ -9,59 +9,59 @@ var timerRunning = false;
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 function leadingZero(time) {
-  if (time <= 9) {
-    time = "0" + time;
-  }
-  return time;
+    if (time <= 9) {
+        time = "0" + time;
+    }
+    return time;
 }
 
 // Run a standard minute/second/hundredths timer:
 var timer = [0, 0, 0, 0]
 function runTimer() {
-  let currentTime = leadingZero(timer[0]) + ":"
+    let currentTime = leadingZero(timer[0]) + ":"
     + leadingZero(timer[1]) + ":"
     + leadingZero(timer[2]);
-  theTimer.innerHTML = currentTime;
-  timer[3]++;
+    theTimer.innerHTML = currentTime;
+    timer[3]++;
 
-  timer[0] = Math.floor(timer[3] / 100 / 60);
-  timer[1] = Math.floor(timer[3] / 100 - timer[0] * 60);
-  timer[2] = Math.floor(timer[3] - timer[1] * 100 - timer[0] * 6000);
+    timer[0] = Math.floor(timer[3] / 100 / 60);
+    timer[1] = Math.floor(timer[3] / 100 - timer[0] * 60);
+    timer[2] = Math.floor(timer[3] - timer[1] * 100 - timer[0] * 6000);
 }
 
 // Match the text entered with the provided text on the page:
 function spellcheck() {
-  let textEntered = testArea.value;
-  let originSlice = originText.substring(0, textEntered.length);
+    let textEntered = testArea.value;
+    let originSlice = originText.substring(0, textEntered.length);
 
-  if (textEntered == originText) {
-    testWrapper.style.borderColor = "green";
-    clearInterval(interval);
-  } else if (textEntered == originSlice) {
-    testWrapper.style.borderColor = "blue";
-  } else {
-    testWrapper.style.borderColor = "red";
-  }
+    if (textEntered == originText) {
+        testWrapper.style.borderColor = "green";
+        clearInterval(interval);
+    } else if (textEntered == originSlice) {
+        testWrapper.style.borderColor = "blue";
+    } else {
+        testWrapper.style.borderColor = "red";
+    }
 }
 
 // Start the timer:
 function startTimer() {
-  let textLength = testArea.value.length;
-  if (textLength === 0 && !timerRunning) {
-    timerRunning = true;
-    interval = setInterval(runTimer, 10);
-  }
+    let textLength = testArea.value.length;
+    if (textLength === 0 && !timerRunning) {
+        timerRunning = true;
+        interval = setInterval(runTimer, 10);
+    }
 }
 
 // Reset everything:
 function reset() {
-  clearInterval(interval);
-  interval = null;
-  timer = [0, 0, 0, 0]
-  theTimer.innerHTML = "00:00:00"
-  testArea.value = "";
-  testWrapper.style.borderColor = "gray";
-  timerRunning = false;
+    clearInterval(interval);
+    interval = null;
+    timer = [0, 0, 0, 0]
+    theTimer.innerHTML = "00:00:00"
+    testArea.value = "";
+    testWrapper.style.borderColor = "gray";
+    timerRunning = false;
 }
 
 // Event listeners for keyboard input and the reset button:
